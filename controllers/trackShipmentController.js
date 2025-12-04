@@ -21,7 +21,7 @@ export const trackShipment = async (req, res) => {
     }
 }
 
-export const updateTrackingStatus = async (req , res ) => {
+export const updateTrackingStatus = async ( req , res ) => {
     try {
         const { trackingNumber } = req.params;
         const { status ,  location } = req.body;
@@ -58,3 +58,4 @@ export const updateTrackingStatus = async (req , res ) => {
         res.status(500).json({ message: 'Server error' });
     }
 }
+

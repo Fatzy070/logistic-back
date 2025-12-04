@@ -4,10 +4,10 @@ import { generateTrackingNumber } from '../utils/tracking.js';
 export const createShipment = async (req , res ) => {
     try {
         const userId = req.user.userId;
-        const { senderName, receiverName,   receiverPhone,      pickupAddress,   deliveryAddress, packageType, weight, price,note,} = req.body;
-
+        const { senderName, receiverName,   receiverPhone,      pickupAddress,   deliveryAddress, packageType, weight, price , note,} = req.body;
+  
         if (!senderName || !receiverName || !receiverPhone || !pickupAddress || !deliveryAddress ) {
-            return res.status(400).json({ message: 'Please provide all required fields' });
+            return res.status(400).json({  message: 'Please provide all required fields' });
         }
         
         const trackingNumber = generateTrackingNumber();

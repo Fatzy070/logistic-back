@@ -28,7 +28,7 @@ export const SignUp = async (req , res ) => {
 
         res.status(200).json({
             message: 'User created successfully',
-            user: {
+            user: { 
                 id: newUser._id,
                 name: newUser.name,
                 email: newUser.email,
@@ -51,11 +51,11 @@ export const Login = async (req , res) => {
         }
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'User does not exist' });
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Incorrect password' });
         }
         const token = jwt.sign(
             { userId: user._id , email: user.email , name: user.name , role: user.role },
