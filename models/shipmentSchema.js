@@ -16,7 +16,7 @@ const shipmentSchema = new Schema({
       pickupAddress: String ,
       deliveryAddress: String ,
       packageType: String ,
-      weight: Number ,
+      weight: String ,
       price: Number ,
       status: { type: String, enum: ["pending",
       "picked",
