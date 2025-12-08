@@ -1,15 +1,24 @@
 import Shipment from '../models/shipmentSchema.js'
 import { generateTrackingNumber } from '../utils/tracking.js';
+import { sendNotification } from './notificationController.js';
 
 export const createShipment = async (req , res ) => {
     try {
         const userId = req.user.userId;
-        const { senderName, receiverName,   receiverPhone,      pickupAddress,   deliveryAddress, packageType, weight, price , note ,} = req.body;
+        const { senderName, receiverName,   receiverPhone, pickupAddress, deliveryAddress, packageType, weight, price , note ,} = req.body;
   
         if (!senderName || !receiverName || !receiverPhone || !pickupAddress || !deliveryAddress ) {
             return res.status(400).json({  message: 'Please provide all required fields' });
         }
         
+            if (!/^\d+$/.test(receiverPhone)) {
+      return res.status(400).json({ message: "Phone number must contain only digits" });
+    }
+    if (receiverPhone.length !== 11) {
+      return res.status(400).json({ message: "Phone number must be 11 digits" });
+    }
+
+
         const trackingNumber = generateTrackingNumber();
 
         const shipment = await Shipment.create({ 
@@ -31,6 +40,15 @@ export const createShipment = async (req , res ) => {
                 date: new Date()
             }]
         })
+
+      await sendNotification({
+  io: req.io,
+  userId, 
+  shipmentId: shipment._id,
+  message: `New shipment created for ${shipment.receiverName}`,
+  type: 'created'
+});
+
 
         res.status(201).json({
       message: "Shipment created successfully",

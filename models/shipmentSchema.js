@@ -11,8 +11,8 @@ const historySchema = new Schema({
 const shipmentSchema = new Schema({
       trackingNumber: { type: String, unique: true },
       senderName: String ,
-      recieverName: String ,
-      recieverPhone: String ,
+      receiverName: String ,
+      receiverPhone: String ,
       pickupAddress: String ,
       deliveryAddress: String ,
       packageType: String ,
