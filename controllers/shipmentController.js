@@ -45,7 +45,7 @@ export const createShipment = async (req , res ) => {
   io: req.io,
   userId, 
   shipmentId: shipment._id,
-  message: `New shipment created for ${shipment.receiverName}`,
+ message: `Shipment #${shipment.trackingNumber} for ${shipment.receiverName} has been successfully created.`,
   type: 'created'
 });
 

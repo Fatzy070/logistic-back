@@ -5,6 +5,6 @@ import { protectedRoute } from '../middleware/authMiddleware.js'
 const router = express.Router()
 
 router.get('/notification' , protectedRoute , getNotifications )
-router.get('/read' , protectedRoute , markAsRead) 
+router.get('/read/:id' , protectedRoute , markAsRead) 
 
 export default router

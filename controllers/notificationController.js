@@ -3,14 +3,14 @@ import Notification from "../models/notificationSchema.js";
 
 
 export const sendNotification = async ({ io, userId, shipmentId, message, type }) => {
-
+  console.log("sendNotification called for userId:", userId);
+  
   const notification = await Notification.create({
     user: userId,
     shipment: shipmentId,
     message,
     type
   });
-
 
   io.to(userId.toString()).emit('newNotification', notification);
 

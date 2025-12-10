@@ -27,10 +27,11 @@ app.use((req, res, next) => {
 io.on('connection', (socket) => {
   console.log('Client connected:', socket.id);
 
-  // User joins their own room for private notifications
-  socket.on('joinRoom', (userId) => {
+ 
+  socket.on('joinRoom', ({ userId }) => {
     socket.join(userId);
-    console.log(`User ${userId} joined their room`);
+    // console.log(`User ${userId} joined their room`);
+    // console.log('Rooms for this socket:', Array.from(socket.rooms));
   });
 })
 
